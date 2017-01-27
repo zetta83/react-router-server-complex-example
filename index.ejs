@@ -1,6 +1,7 @@
 <html>
 <head>
   <title></title>
+  <link rel="stylesheet" type="text/css" href="/app.css">
   <% if (typeof files !== 'undefined') { %>
   <% files.forEach(function (file) { %>
   <link rel="preload" href="/<%- file %>" as="script">
@@ -16,4 +17,4 @@
 <script src="/app.js"></script>
 </body>
 </html>
-<link rel="stylesheet" type="text/css" href="/app.css">
+

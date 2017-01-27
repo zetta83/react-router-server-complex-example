@@ -1,6 +1,7 @@
 import path from 'path';
-import StatsPlugin from 'stats-webpack-plugin';
 import fs from 'fs';
+import webpack from 'webpack'
+import StatsPlugin from 'stats-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const nodeModules = {};
@@ -26,7 +27,7 @@ const config = server => ({
 
   externals: (server ? nodeModules : {}),
 
-  devtool: 'source-map',
+  //devtool: 'source-map',
 
   ...(server ? {target: 'node'} : {}),
 
@@ -51,7 +52,13 @@ const config = server => ({
       chunkModules: true,
       exclude: [/node_modules/]
     }),
-    extractTextPlugin
+    extractTextPlugin,
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({minimize: true})
   ]
 });
 

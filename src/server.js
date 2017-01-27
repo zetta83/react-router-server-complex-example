@@ -3,10 +3,12 @@ import App from '../build/server/app';
 import { renderToString, extractModules } from 'react-router-server';
 import { ServerRouter, createServerRenderContext } from 'react-router'
 import express from 'express';
+import compression from 'compression'
 import path from 'path';
 import stats from '../build/public/stats.json';
 
 const app = express();
+app.use(compression())
 app.use(express.static(path.join(__dirname, '..', 'build', 'public')));
 
 app.get('/*', function (req, res) {
